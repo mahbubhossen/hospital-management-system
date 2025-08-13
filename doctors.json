@@ -1,0 +1,92 @@
+[
+  {
+    "id": 1,
+    "name": "Dr. Md. Rahim Uddin",
+    "specialization": "Cardiologist",
+    "phone": "+8801712345678",
+    "email": "rahim.uddin@hospitalbd.com",
+    "available_days": ["Monday", "Wednesday", "Friday"],
+    "photo": "../images/doctor1.jpg"
+  },
+  {
+    "id": 2,
+    "name": "Dr. Farhana Islam",
+    "specialization": "Neurologist",
+    "phone": "+8801912345678",
+    "email": "farhana.islam@hospitalbd.com",
+    "available_days": ["Tuesday", "Thursday"],
+    "photo": "../images/doctor2.jpg"
+  },
+  {
+    "id": 3,
+    "name": "Dr. Jamal Hossain",
+    "specialization": "Orthopedic Surgeon",
+    "phone": "+8801812345678",
+    "email": "jamal.hossain@hospitalbd.com",
+    "available_days": ["Monday", "Thursday", "Saturday"],
+    "photo": "../images/doctor3.jpg"
+  },
+  {
+    "id": 4,
+    "name": "Dr. Anika Rahman",
+    "specialization": "Pediatrician",
+    "phone": "+8801719876543",
+    "email": "anika.rahman@hospitalbd.com",
+    "available_days": ["Wednesday", "Friday", "Saturday"],
+    "photo": "../images/doctor4.jpg"
+  },
+  {
+    "id": 5,
+    "name": "Dr. Shafiq Ahmed",
+    "specialization": "General Physician",
+    "phone": "+8801612345678",
+    "email": "shafiq.ahmed@hospitalbd.com",
+    "available_days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+    "photo": "../images/doctor5.jpg"
+  },
+  {
+    "id": 6,
+    "name": "Dr. Laila Nasrin",
+    "specialization": "Dermatologist",
+    "phone": "+8801911122233",
+    "email": "laila.nasrin@hospitalbd.com",
+    "available_days": ["Tuesday", "Friday"],
+    "photo": "../images/doctor6.jpg"
+  },
+  {
+    "id": 7,
+    "name": "Dr. Kamal Chowdhury",
+    "specialization": "ENT Specialist",
+    "phone": "+8801715566778",
+    "email": "kamal.chowdhury@hospitalbd.com",
+    "available_days": ["Monday", "Wednesday"],
+    "photo": "../images/doctor7.jpg"
+  },
+  {
+    "id": 8,
+    "name": "Dr. Nazia Sultana",
+    "specialization": "Gynecologist",
+    "phone": "+8801813344556",
+    "email": "nazia.sultana@hospitalbd.com",
+    "available_days": ["Thursday", "Saturday"],
+    "photo": "../images/doctor8.jpg"
+  },
+  {
+    "id": 9,
+    "name": "Dr. Imran Hossain",
+    "specialization": "Psychiatrist",
+    "phone": "+8801919988776",
+    "email": "imran.hossain@hospitalbd.com",
+    "available_days": ["Tuesday", "Thursday"],
+    "photo": "../images/doctor9.jpg"
+  },
+  {
+    "id": 10,
+    "name": "Dr. Sabina Akter",
+    "specialization": "Radiologist",
+    "phone": "+8801612233445",
+    "email": "sabina.akter@hospitalbd.com",
+    "available_days": ["Monday", "Friday"],
+    "photo": "../images/doctor10.jpg"
+  }
+]
