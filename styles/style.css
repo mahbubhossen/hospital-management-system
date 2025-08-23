@@ -1,6 +1,6 @@
 .banner {
   position: relative;
-  height: 80vh; /* Adjust height as needed */
+  height: 80vh; 
   background: url("../images/banner.jpg") center center/cover no-repeat ;
   display: flex;
   justify-content: center;
@@ -24,3 +24,73 @@
   position: relative;
   z-index: 2;
 }
+
+.navbar-nav .nav-link {
+    font-size: 1.25rem; /* Bigger text */
+    font-weight: 600; /* Slightly bold */
+  }
+
+
+   .why-card {
+        border: 1px solid #e6e6e6;
+        border-radius: 10px;
+        transition: transform 0.3s ease;
+        text-align: center;
+        padding: 20px;
+        height: 100%; /* make all cards equal height */
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+
+    .why-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .why-icon {
+        width: 80px;
+        height: 80px;
+        background-color: #8ABC48;
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 35px;
+        margin: 0 auto 15px;
+    }
+
+    .why-title {
+        font-weight: bold;
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+    }
+
+    .why-text {
+        color: #555;
+        font-size: 0.95rem;
+        flex-grow: 1; /* make text expand so all cards align */
+    }
+
+
+    /* FAQ section */
+   
+    .accordion-button {
+        background-color: #8ABC48;
+        color: white;
+        font-weight: bold;
+    }
+
+    .accordion-button:focus {
+        box-shadow: none;
+    }
+
+    .accordion-body {
+        color: #555;
+        font-size: 0.95rem;
+    }
+
+    h2 {
+        font-weight: bold;
+    }

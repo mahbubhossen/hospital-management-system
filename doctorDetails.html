@@ -4,10 +4,87 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Doctor Details</title>
-    <link rel="stylesheet" href="styles/style.css">
-    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f7f7f7;
+        }
+        .doctor-card {
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0px 4px 15px rgba(0,0,0,0.1);
+        }
+        .doctor-photo {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+        }
+        .doctor-info {
+            padding: 20px;
+        }
+        .available-days span {
+            display: inline-block;
+            background-color: #8ABC48;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            margin: 2px;
+            font-size: 0.9rem;
+        }
+    </style>
 </head>
 <body>
-    
+
+<div class="container my-5">
+    <div id="doctor-details" class="doctor-card">
+        <!-- Doctor details will load here -->
+    </div>
+</div>
+
+<script>
+    async function loadDoctorDetails() {
+        const params = new URLSearchParams(window.location.search);
+        const doctorId = parseInt(params.get("id"));
+
+        try {
+            const res = await fetch("doctors.json");
+            const doctors = await res.json();
+            const doctor = doctors.find(d => d.id === doctorId);
+
+            if (!doctor) {
+                document.getElementById("doctor-details").innerHTML = 
+                    `<div class="p-4 text-center text-danger">Doctor not found!</div>`;
+                return;
+            }
+
+            document.getElementById("doctor-details").innerHTML = `
+                <div class="row g-0">
+                    <div class="col-md-5">
+                        <img src="${doctor.photo}" alt="${doctor.name}" class="doctor-photo">
+                    </div>
+                    <div class="col-md-7 doctor-info">
+                        <h2 class="mb-2">${doctor.name}</h2>
+                        <h5 class="text-muted">${doctor.specialization}</h5>
+                        <hr>
+                        <p><strong>Phone:</strong> ${doctor.phone}</p>
+                        <p><strong>Email:</strong> ${doctor.email}</p>
+                        <p><strong>Available Days:</strong></p>
+                        <div class="available-days">
+                            ${doctor.available_days.map(day => `<span>${day}</span>`).join("")}
+                        </div>
+                        <a href="index.html" class="btn btn-secondary mt-3">Back to Doctors List</a>
+                    </div>
+                </div>
+            `;
+        } catch (error) {
+            document.getElementById("doctor-details").innerHTML = 
+                `<div class="p-4 text-center text-danger">Error loading doctor data!</div>`;
+        }
+    }
+
+    loadDoctorDetails();
+</script>
+
 </body>
 </html>

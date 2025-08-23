@@ -22,8 +22,11 @@ async function loadDoctors() {
       <p class="card-text text-muted">${doc.specialization}</p>
     </div>
     <div class="card-footer bg-white border-0 text-center mb-2">
-      <a href="#" class="btn btn-sm" style="background-color: #8ABC48; color: white;">See Details</a>
-
+      <a href="doctorDetails.html?id=${doc.id}" 
+         class="btn btn-sm" 
+         style="background-color: #8ABC48; color: white;">
+         See Details
+      </a>
     </div>
   </div>
 `;

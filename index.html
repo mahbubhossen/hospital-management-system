@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Hospital BD</title>
-    <link rel="shortcut icon" href="../images/logo.png"  type="image/x-icon">
+    <link rel="shortcut icon" href="../images/logo.png" type="image/x-icon" />
     <link rel="stylesheet" href="styles/style.css" />
 
     <!-- bootstrap -->
@@ -13,6 +13,12 @@
       rel="stylesheet"
       integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
       crossorigin="anonymous"
+    />
+
+    <!-- font awesome icon -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
   </head>
   <body>
@@ -59,7 +65,12 @@
           </ul>
 
           <!-- Login Button -->
-          <a href="#" class="btn " style="background-color: #8ABC48; color: white;">Login</a>
+          <a
+            href="login.html"
+            class="btn"
+            style="background-color: #8abc48; color: white"
+            >Login</a
+          >
         </div>
       </div>
     </nav>
@@ -85,6 +96,183 @@
           </div>
         </div>
       </section>
+
+      <!-- Why Choose Us Section -->
+      <div class="container my-5">
+        <h2 class="text-center mb-4" style="color: #0d2b0d">Why Choose Us</h2>
+        <div class="row g-4">
+          <div class="col-md-3">
+            <div class="why-card">
+              <div class="why-icon">
+                <i class="fas fa-user-md"></i>
+              </div>
+              <div class="why-title">Qualified Staff of Doctors</div>
+              <div class="why-text">
+                Our platform exclusively partners with highly qualified doctors
+                who bring expertise & commitment to delivering top-notch
+                healthcare.
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="why-card">
+              <div class="why-icon">
+                <i class="fas fa-clock"></i>
+              </div>
+              <div class="why-title">24 Hours Service</div>
+              <div class="why-text">
+                Experience healthcare access with our 24/7 service. Whether day
+                or night, you can find & book appointments.
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="why-card">
+              <div class="why-icon">
+                <i class="fas fa-flask"></i>
+              </div>
+              <div class="why-title">Quality Lab Services</div>
+              <div class="why-text">
+                Partnering with accredited labs, your health is our priority,
+                and our quality lab services reflect our dedication to
+                excellence.
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="why-card">
+              <div class="why-icon">
+                <i class="fas fa-comments"></i>
+              </div>
+              <div class="why-title">Free Consultations</div>
+              <div class="why-text">
+                Your well-being is important, and we provide accessible care
+                starting with a free initial consultation.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ Section -->
+      <div class="container my-5">
+        <h2 class="text-center mb-4" style="color: #0d2b0d">
+          Frequently Asked Questions
+        </h2>
+        <div class="accordion" id="faqAccordion">
+          <!-- Question 1 -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="faqHeadingOne">
+              <button
+                class="accordion-button"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#faqCollapseOne"
+                aria-expanded="true"
+                aria-controls="faqCollapseOne"
+              >
+                How do I book an appointment?
+              </button>
+            </h2>
+            <div
+              id="faqCollapseOne"
+              class="accordion-collapse collapse show"
+              aria-labelledby="faqHeadingOne"
+              data-bs-parent="#faqAccordion"
+            >
+              <div class="accordion-body">
+                You can book an appointment easily through our online platform.
+                Choose your doctor, select a time slot, and confirm your
+                appointment.
+              </div>
+            </div>
+          </div>
+
+          <!-- Question 2 -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="faqHeadingTwo">
+              <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#faqCollapseTwo"
+                aria-expanded="false"
+                aria-controls="faqCollapseTwo"
+              >
+                What are the working hours?
+              </button>
+            </h2>
+            <div
+              id="faqCollapseTwo"
+              class="accordion-collapse collapse"
+              aria-labelledby="faqHeadingTwo"
+              data-bs-parent="#faqAccordion"
+            >
+              <div class="accordion-body">
+                Our doctors are available 24/7. You can schedule appointments at
+                any time according to your convenience.
+              </div>
+            </div>
+          </div>
+
+          <!-- Question 3 -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="faqHeadingThree">
+              <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#faqCollapseThree"
+                aria-expanded="false"
+                aria-controls="faqCollapseThree"
+              >
+                Do you offer free consultations?
+              </button>
+            </h2>
+            <div
+              id="faqCollapseThree"
+              class="accordion-collapse collapse"
+              aria-labelledby="faqHeadingThree"
+              data-bs-parent="#faqAccordion"
+            >
+              <div class="accordion-body">
+                Yes! We offer an initial free consultation to ensure that your
+                health concerns are addressed properly.
+              </div>
+            </div>
+          </div>
+
+          <!-- Question 4 -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="faqHeadingFour">
+              <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#faqCollapseFour"
+                aria-expanded="false"
+                aria-controls="faqCollapseFour"
+              >
+                How can I access lab reports?
+              </button>
+            </h2>
+            <div
+              id="faqCollapseFour"
+              class="accordion-collapse collapse"
+              aria-labelledby="faqHeadingFour"
+              data-bs-parent="#faqAccordion"
+            >
+              <div class="accordion-body">
+                All lab reports are available online on your dashboard. You can
+                download or view them anytime after your test.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
 
     <script src="index.js"></script>
