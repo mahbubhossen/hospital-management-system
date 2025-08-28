@@ -1,43 +1,290 @@
-async function loadDoctors() {
-  try {
-    const response = await fetch("doctors.json");
-    if (!response.ok) throw new Error("Failed to load doctors data");
-    const doctors = await response.json();
+document.addEventListener("DOMContentLoaded", async () => {
+  // ---------------- Load Doctors (Home page) ----------------
+  async function loadDoctors(limit = 6) {
+    try {
+      const response = await fetch("doctors.json");
+      if (!response.ok) throw new Error("Failed to load doctors data");
+      const doctors = await response.json();
 
-    const container = document.getElementById("doctors-container");
-    container.innerHTML = "";
+      const container = document.getElementById("doctors-container");
+      if (!container) return; // page e na thakle exit
 
-    doctors.forEach((doc) => {
-      const col = document.createElement("div");
-      col.className = "col-md-4 mb-4";
+      container.innerHTML = "";
 
-      col.innerHTML = `
-  <div class="card h-100 shadow-sm d-flex flex-column">
-    <img src="images/${doc.photo}" 
-         class="card-img-top" 
-         alt="${doc.name}" 
-         style="height: 220px; object-fit: cover;">
-    <div class="card-body d-flex flex-column justify-content-center text-center">
-      <h5 class="card-title mb-2">${doc.name}</h5>
-      <p class="card-text text-muted">${doc.specialization}</p>
-    </div>
-    <div class="card-footer bg-white border-0 text-center mb-2">
-      <a href="doctorDetails.html?id=${doc.id}" 
-         class="btn btn-sm" 
-         style="background-color: #8ABC48; color: white;">
-         See Details
-      </a>
-    </div>
-  </div>
-`;
+      doctors.slice(0, limit).forEach((doc) => {
+        const col = document.createElement("div");
+        col.className = "col-md-4 mb-4";
+        col.innerHTML = `
+          <div class="card h-100 shadow-sm d-flex flex-column">
+            <img src="${doc.photo}" 
+                 class="card-img-top" 
+                 alt="${doc.name}" 
+                 style="height: 220px; object-fit: cover;">
+            <div class="card-body d-flex flex-column justify-content-center text-center">
+              <h5 class="card-title mb-2">${doc.name}</h5>
+              <p class="card-text text-muted">${doc.specialization}</p>
+            </div>
+            <div class="card-footer bg-white border-0 text-center mb-2">
+              <a href="doctorDetails.html?id=${doc.id}" 
+                 class="btn btn-sm" 
+                 style="background-color: #8ABC48; color: white;">
+                 See Details
+              </a>
+            </div>
+          </div>
+        `;
+        container.appendChild(col);
+      });
 
-      container.appendChild(col);
-    });
-  } catch (error) {
-    console.error(error);
-    document.getElementById("doctors-container").innerHTML =
-      '<p class="text-danger text-center">Failed to load doctors information.</p>';
+      // See All Doctors button
+      const buttonRow = document.createElement("div");
+      buttonRow.className = "row mt-3";
+      buttonRow.innerHTML = `
+        <div class="col text-center">
+          <button id="see-all-doctors" class="btn btn-success">
+            See All Doctors
+          </button>
+        </div>
+      `;
+      container.appendChild(buttonRow);
+
+      const seeAllBtn = document.getElementById("see-all-doctors");
+      if (seeAllBtn) {
+        seeAllBtn.addEventListener("click", () => {
+          window.location.href = "doctors.html";
+        });
+      }
+
+    } catch (error) {
+      console.error(error);
+      const container = document.getElementById("doctors-container");
+      if (container) {
+        container.innerHTML =
+          '<p class="text-danger text-center">Failed to load doctors information.</p>';
+      }
+    }
   }
-}
-// Load doctors on page load
-window.addEventListener("DOMContentLoaded", loadDoctors);
+
+  // ---------------- Load Departments Page ----------------
+  async function loadDepartmentsPage() {
+    try {
+      const response = await fetch("doctors.json");
+      if (!response.ok) throw new Error("Failed to load doctors data");
+      const doctors = await response.json();
+
+      const deptDropdown = document.getElementById("departmentDropdown");
+      const container = document.getElementById("department-doctors");
+
+      if (!deptDropdown || !container) return;
+
+      const departments = [...new Set(doctors.map(doc => doc.specialization))];
+      deptDropdown.innerHTML = `<option value="all">All Departments</option>`;
+      departments.forEach(dept => {
+        const opt = document.createElement("option");
+        opt.value = dept;
+        opt.textContent = dept;
+        deptDropdown.appendChild(opt);
+      });
+
+      function renderDoctors(filter = "all") {
+        container.innerHTML = "";
+        doctors
+          .filter(doc => filter === "all" || doc.specialization === filter)
+          .forEach(doc => {
+            const col = document.createElement("div");
+            col.className = "col-md-4 mb-4";
+            col.innerHTML = `
+              <div class="card h-100 shadow-sm d-flex flex-column">
+                <img src="${doc.photo}" 
+                     class="card-img-top" 
+                     alt="${doc.name}" 
+                     style="height: 220px; object-fit: cover;">
+                <div class="card-body d-flex flex-column justify-content-center text-center">
+                  <h5 class="card-title mb-2">${doc.name}</h5>
+                  <p class="card-text text-muted">${doc.specialization}</p>
+                  <small class="text-muted">${doc.available_days.join(", ")}</small>
+                </div>
+                <div class="card-footer bg-white border-0 text-center mb-2">
+                  <a href="doctorDetails.html?id=${doc.id}" 
+                     class="btn btn-sm" 
+                     style="background-color: #8ABC48; color: white;">
+                     See Details
+                  </a>
+                </div>
+              </div>
+            `;
+            container.appendChild(col);
+          });
+      }
+
+      renderDoctors();
+
+      deptDropdown.addEventListener("change", (e) => {
+        renderDoctors(e.target.value);
+      });
+
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  // ---------------- Appointment / Dropdown Logic ----------------
+  let doctorsData = [];
+  const deptDropdown = document.getElementById("departmentDropdown");
+  const doctorDropdown = document.getElementById("doctorDropdown");
+  const dayDropdown = document.getElementById("dayDropdown");
+
+  if (deptDropdown || doctorDropdown || dayDropdown) {
+    const res = await fetch("doctors.json");
+    doctorsData = await res.json();
+
+    if (deptDropdown) {
+      deptDropdown.innerHTML = `<option value="">Select Department</option>`;
+      [...new Set(doctorsData.map(doc => doc.specialization))].forEach(dept => {
+        const opt = document.createElement("option");
+        opt.value = dept;
+        opt.textContent = dept;
+        deptDropdown.appendChild(opt);
+      });
+
+      deptDropdown.addEventListener("change", function() {
+        const selectedDept = this.value;
+        doctorDropdown.innerHTML = '<option value="">Select Doctor</option>';
+        dayDropdown.innerHTML = '<option value="">Select Day</option>';
+        dayDropdown.disabled = true;
+
+        if (!selectedDept) {
+          doctorDropdown.disabled = true;
+          return;
+        }
+
+        const filteredDoctors = doctorsData.filter(doc => doc.specialization === selectedDept);
+        filteredDoctors.forEach(doc => {
+          const opt = document.createElement("option");
+          opt.value = doc.id;
+          opt.textContent = doc.name;
+          doctorDropdown.appendChild(opt);
+        });
+        doctorDropdown.disabled = false;
+      });
+    }
+
+    if (doctorDropdown) {
+      doctorDropdown.addEventListener("change", function() {
+        const doctorId = parseInt(this.value);
+        dayDropdown.innerHTML = '<option value="">Select Day</option>';
+
+        if (!doctorId) {
+          dayDropdown.disabled = true;
+          return;
+        }
+
+        const doctor = doctorsData.find(doc => doc.id === doctorId);
+        doctor.available_days.forEach(day => {
+          const opt = document.createElement("option");
+          opt.value = day;
+          opt.textContent = day;
+          dayDropdown.appendChild(opt);
+        });
+
+        dayDropdown.disabled = false;
+      });
+    }
+  }
+
+  // ---------------- Submit Appointment ----------------
+  const submitBtn = document.getElementById("submitAppointment");
+  if (submitBtn) {
+    submitBtn.addEventListener("click", function() {
+      const patientName = document.getElementById("patientName").value.trim();
+      const patientPhone = document.getElementById("patientPhone").value.trim();
+      const doctorId = parseInt(doctorDropdown.value);
+      const day = dayDropdown.value;
+
+      if (!patientName || !patientPhone || !doctorId || !day) {
+        alert("Please fill all fields!");
+        return;
+      }
+
+      const doctor = doctorsData.find(doc => doc.id === doctorId);
+      let appointments = JSON.parse(localStorage.getItem("appointments")) || [];
+      appointments.push({
+        id: Date.now(),
+        patientName,
+        patientPhone,
+        doctorId,
+        doctorName: doctor.name,
+        specialization: doctor.specialization,
+        day
+      });
+      localStorage.setItem("appointments", JSON.stringify(appointments));
+
+      const msg = document.getElementById("successMsg");
+      if (msg) msg.style.display = "block";
+
+      setTimeout(() => window.location.href = "index.html", 2000);
+    });
+  }
+
+  // ---------------- Registration & Login Forms ----------------
+  const forms = document.querySelectorAll("form");
+  forms.forEach((form) => {
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const users = JSON.parse(localStorage.getItem("users")) || [];
+
+      if (form.id === "registerForm") {
+        const fullname = document.getElementById("fullname").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const phone = document.getElementById("phone").value.trim();
+        const password = document.getElementById("password").value.trim();
+
+        if (!fullname || !email || !phone || !password) {
+          alert("Please fill all fields!");
+          return;
+        }
+
+        if (users.some(user => user.email === email)) {
+          alert("Email already registered. Try login.");
+          return;
+        }
+
+        const newUser = {
+          id: Date.now(),
+          role: "patient",
+          name: fullname,
+          email,
+          phone,
+          password
+        };
+
+        users.push(newUser);
+        localStorage.setItem("users", JSON.stringify(users));
+        alert("Registration successful! You can now login.");
+        window.location.href = "login.html";
+
+      } else if (form.id === "loginForm") {
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value.trim();
+
+        const user = users.find(u => u.email === email && u.password === password);
+        if (!user) {
+          alert("Invalid email or password!");
+          return;
+        }
+
+        localStorage.setItem("currentUser", JSON.stringify(user));
+        if (user.role === "admin") window.location.href = "admin-dashboard.html";
+        else if (user.role === "doctor") window.location.href = "doctor-dashboard.html";
+        else window.location.href = "index.html";
+      }
+    });
+  });
+
+  // ---------------- Detect Page ----------------
+  if (document.getElementById("doctors-container")) loadDoctors(6);
+  if (document.getElementById("departmentDropdown") && document.getElementById("department-doctors")) {
+    loadDepartmentsPage();
+  }
+
+});
