@@ -1,22 +1,24 @@
 document.addEventListener("DOMContentLoaded", async () => {
 
-
-
   const navbarAuth = document.getElementById("navbarAuth");
-  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
-  // Element আছে কিনা চেক
-if (navbarAuth) {
+  if (navbarAuth) {
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
   
   if (currentUser) {
+    // Role অনুযায়ী Dashboard link
+    let dashboardLink = "#";
+    if(currentUser.role === "admin") dashboardLink = "admin-dashboard.html";
+    else if(currentUser.role === "doctor") dashboardLink = "doctor-dashboard.html";
+    else dashboardLink = "user-dashboard.html";
+
     navbarAuth.innerHTML = `
       <div class="dropdown">
         <a class="btn dropdown-toggle" href="#" role="button" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
           <img src="images/profile-icon.png" alt="Profile" width="30" height="30" class="rounded-circle">
         </a>
         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
-          <li><a class="dropdown-item" href="Dashboard.html">Dashboard</a></li>
+          <li><a class="dropdown-item" href="${dashboardLink}">Dashboard</a></li>
           <li><a class="dropdown-item" href="#" id="logoutBtn">Logout</a></li>
         </ul>
       </div>
@@ -29,7 +31,6 @@ if (navbarAuth) {
         window.location.reload();
       });
     }
-
   } else {
     navbarAuth.innerHTML = `
       <a href="login.html" class="btn me-2" style="background-color: #8abc48; color: white;">Login</a>
@@ -94,7 +95,6 @@ if (navbarAuth) {
           window.location.href = "doctors.html";
         });
       }
-
     } catch (error) {
       console.error(error);
       const container = document.getElementById("doctors-container");
@@ -117,9 +117,11 @@ if (navbarAuth) {
 
       if (!deptDropdown || !container) return;
 
-      const departments = [...new Set(doctors.map(doc => doc.specialization))];
+      const departments = [
+        ...new Set(doctors.map((doc) => doc.specialization)),
+      ];
       deptDropdown.innerHTML = `<option value="all">All Departments</option>`;
-      departments.forEach(dept => {
+      departments.forEach((dept) => {
         const opt = document.createElement("option");
         opt.value = dept;
         opt.textContent = dept;
@@ -129,8 +131,8 @@ if (navbarAuth) {
       function renderDoctors(filter = "all") {
         container.innerHTML = "";
         doctors
-          .filter(doc => filter === "all" || doc.specialization === filter)
-          .forEach(doc => {
+          .filter((doc) => filter === "all" || doc.specialization === filter)
+          .forEach((doc) => {
             const col = document.createElement("div");
             col.className = "col-md-4 mb-4";
             col.innerHTML = `
@@ -142,7 +144,9 @@ if (navbarAuth) {
                 <div class="card-body d-flex flex-column justify-content-center text-center">
                   <h5 class="card-title mb-2">${doc.name}</h5>
                   <p class="card-text text-muted">${doc.specialization}</p>
-                  <small class="text-muted">${doc.available_days.join(", ")}</small>
+                  <small class="text-muted">${doc.available_days.join(
+                    ", "
+                  )}</small>
                 </div>
                 <div class="card-footer bg-white border-0 text-center mb-2">
                   <a href="doctorDetails.html?id=${doc.id}" 
@@ -162,7 +166,6 @@ if (navbarAuth) {
       deptDropdown.addEventListener("change", (e) => {
         renderDoctors(e.target.value);
       });
-
     } catch (error) {
       console.error(error);
     }
@@ -180,14 +183,16 @@ if (navbarAuth) {
 
     if (deptDropdown) {
       deptDropdown.innerHTML = `<option value="">Select Department</option>`;
-      [...new Set(doctorsData.map(doc => doc.specialization))].forEach(dept => {
-        const opt = document.createElement("option");
-        opt.value = dept;
-        opt.textContent = dept;
-        deptDropdown.appendChild(opt);
-      });
+      [...new Set(doctorsData.map((doc) => doc.specialization))].forEach(
+        (dept) => {
+          const opt = document.createElement("option");
+          opt.value = dept;
+          opt.textContent = dept;
+          deptDropdown.appendChild(opt);
+        }
+      );
 
-      deptDropdown.addEventListener("change", function() {
+      deptDropdown.addEventListener("change", function () {
         const selectedDept = this.value;
         doctorDropdown.innerHTML = '<option value="">Select Doctor</option>';
         dayDropdown.innerHTML = '<option value="">Select Day</option>';
@@ -198,8 +203,10 @@ if (navbarAuth) {
           return;
         }
 
-        const filteredDoctors = doctorsData.filter(doc => doc.specialization === selectedDept);
-        filteredDoctors.forEach(doc => {
+        const filteredDoctors = doctorsData.filter(
+          (doc) => doc.specialization === selectedDept
+        );
+        filteredDoctors.forEach((doc) => {
           const opt = document.createElement("option");
           opt.value = doc.id;
           opt.textContent = doc.name;
@@ -210,7 +217,7 @@ if (navbarAuth) {
     }
 
     if (doctorDropdown) {
-      doctorDropdown.addEventListener("change", function() {
+      doctorDropdown.addEventListener("change", function () {
         const doctorId = parseInt(this.value);
         dayDropdown.innerHTML = '<option value="">Select Day</option>';
 
@@ -219,8 +226,8 @@ if (navbarAuth) {
           return;
         }
 
-        const doctor = doctorsData.find(doc => doc.id === doctorId);
-        doctor.available_days.forEach(day => {
+        const doctor = doctorsData.find((doc) => doc.id === doctorId);
+        doctor.available_days.forEach((day) => {
           const opt = document.createElement("option");
           opt.value = day;
           opt.textContent = day;
@@ -235,7 +242,7 @@ if (navbarAuth) {
   // ---------------- Submit Appointment ----------------
   const submitBtn = document.getElementById("submitAppointment");
   if (submitBtn) {
-    submitBtn.addEventListener("click", function() {
+    submitBtn.addEventListener("click", function () {
       const patientName = document.getElementById("patientName").value.trim();
       const patientPhone = document.getElementById("patientPhone").value.trim();
       const doctorId = parseInt(doctorDropdown.value);
@@ -246,23 +253,25 @@ if (navbarAuth) {
         return;
       }
 
-      const doctor = doctorsData.find(doc => doc.id === doctorId);
+      const doctor = doctorsData.find((doc) => doc.id === doctorId);
       let appointments = JSON.parse(localStorage.getItem("appointments")) || [];
       appointments.push({
         id: Date.now(),
         patientName,
+        patientEmail: currentUser.email, // <-- add this line
         patientPhone,
         doctorId,
         doctorName: doctor.name,
         specialization: doctor.specialization,
-        day
+        day,
       });
+
       localStorage.setItem("appointments", JSON.stringify(appointments));
 
       const msg = document.getElementById("successMsg");
       if (msg) msg.style.display = "block";
 
-      setTimeout(() => window.location.href = "index.html", 2000);
+      setTimeout(() => (window.location.href = "index.html"), 2000);
     });
   }
 
@@ -284,7 +293,7 @@ if (navbarAuth) {
           return;
         }
 
-        if (users.some(user => user.email === email)) {
+        if (users.some((user) => user.email === email)) {
           alert("Email already registered. Try login.");
           return;
         }
@@ -295,38 +304,41 @@ if (navbarAuth) {
           name: fullname,
           email,
           phone,
-          password
+          password,
         };
 
         users.push(newUser);
         localStorage.setItem("users", JSON.stringify(users));
         alert("Registration successful! You can now login.");
         window.location.href = "login.html";
-
       } else if (form.id === "loginForm") {
         const email = document.getElementById("email").value.trim();
         const password = document.getElementById("password").value.trim();
 
-        const user = users.find(u => u.email === email && u.password === password);
+        const user = users.find(
+          (u) => u.email === email && u.password === password
+        );
         if (!user) {
           alert("Invalid email or password!");
           return;
         }
 
         localStorage.setItem("currentUser", JSON.stringify(user));
-        if (user.role === "admin") window.location.href = "admin-dashboard.html";
-        else if (user.role === "doctor") window.location.href = "doctor-dashboard.html";
+        if (user.role === "admin")
+          window.location.href = "index.html";
+        else if (user.role === "doctor")
+          window.location.href = "doctor-dashboard.html";
         else window.location.href = "index.html";
       }
     });
   });
 
-  
-
   // ---------------- Detect Page ----------------
   if (document.getElementById("doctors-container")) loadDoctors(6);
-  if (document.getElementById("departmentDropdown") && document.getElementById("department-doctors")) {
+  if (
+    document.getElementById("departmentDropdown") &&
+    document.getElementById("department-doctors")
+  ) {
     loadDepartmentsPage();
   }
-
 });
