@@ -1,11 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - Hospital Management</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body { background-color: #f7f7f7; }
+    .container { margin-top: 40px; }
+    .card { margin-bottom: 20px; }
+    .btn-add { background-color: #8ABC48; color: white; }
+    .btn-add:hover { background-color: #7aa93e; }
+  </style>
 </head>
 <body>
-    <h1>Admin DashBoard </h1>
+
+<div class="container">
+  <h1 class="text-center mb-4">Admin Dashboard</h1>
+
+  <!-- Add Doctor Form -->
+  <div class="card p-3">
+    <h3>Add Doctor</h3>
+    <form id="addDoctorForm">
+      <div class="mb-3">
+        <label for="doctorName" class="form-label">Name</label>
+        <input type="text" id="doctorName" class="form-control" placeholder="Enter doctor's name">
+      </div>
+      <div class="mb-3">
+        <label for="doctorEmail" class="form-label">Email</label>
+        <input type="email" id="doctorEmail" class="form-control" placeholder="Enter doctor's email">
+      </div>
+      <div class="mb-3">
+        <label for="doctorPhone" class="form-label">Phone</label>
+        <input type="text" id="doctorPhone" class="form-control" placeholder="Enter doctor's phone">
+      </div>
+      <div class="mb-3">
+        <label for="doctorSpecialization" class="form-label">Specialization</label>
+        <input type="text" id="doctorSpecialization" class="form-control" placeholder="Enter specialization">
+      </div>
+      <div class="mb-3">
+        <label for="doctorDays" class="form-label">Available Days (comma separated)</label>
+        <input type="text" id="doctorDays" class="form-control" placeholder="e.g. Monday, Wednesday, Friday">
+      </div>
+      <div class="mb-3">
+        <label for="doctorPhoto" class="form-label">Photo URL</label>
+        <input type="text" id="doctorPhoto" class="form-control" placeholder="Enter photo path">
+      </div>
+      <button type="submit" class="btn btn-add">Add Doctor</button>
+    </form>
+  </div>
+
+  <!-- Doctors List -->
+  <div class="card p-3">
+    <h3>Current Doctors</h3>
+    <div id="doctorsList" class="row"></div>
+  </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  const doctorsListContainer = document.getElementById("doctorsList");
+
+  // Load doctors from localStorage
+  function loadDoctors() {
+    const doctors = JSON.parse(localStorage.getItem("doctors")) || [];
+    doctorsListContainer.innerHTML = "";
+
+    doctors.forEach(doc => {
+      const col = document.createElement("div");
+      col.className = "col-md-4";
+      col.innerHTML = `
+        <div class="card shadow-sm">
+          <img src="${doc.photo}" class="card-img-top" style="height:200px; object-fit:cover;" alt="${doc.name}">
+          <div class="card-body">
+            <h5 class="card-title">${doc.name}</h5>
+            <p class="card-text">
+              <strong>Email:</strong> ${doc.email} <br>
+              <strong>Phone:</strong> ${doc.phone} <br>
+              <strong>Specialization:</strong> ${doc.specialization} <br>
+              <strong>Days:</strong> ${doc.available_days.join(", ")}
+            </p>
+          </div>
+        </div>
+      `;
+      doctorsListContainer.appendChild(col);
+    });
+  }
+
+  // Add Doctor Form
+  const addDoctorForm = document.getElementById("addDoctorForm");
+  addDoctorForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const name = document.getElementById("doctorName").value.trim();
+    const email = document.getElementById("doctorEmail").value.trim();
+    const phone = document.getElementById("doctorPhone").value.trim();
+    const specialization = document.getElementById("doctorSpecialization").value.trim();
+    const days = document.getElementById("doctorDays").value.trim().split(",").map(d => d.trim());
+    const photo = document.getElementById("doctorPhoto").value.trim();
+
+    if(!name || !email || !phone || !specialization || days.length === 0 || !photo) {
+      alert("Please fill all fields!");
+      return;
+    }
+
+    const doctors = JSON.parse(localStorage.getItem("doctors")) || [];
+    const newDoctor = {
+      id: doctors.length > 0 ? doctors[doctors.length-1].id + 1 : 1,
+      name,
+      email,
+      phone,
+      specialization,
+      available_days: days,
+      photo
+    };
+
+    doctors.push(newDoctor);
+    localStorage.setItem("doctors", JSON.stringify(doctors));
+
+    alert("Doctor added successfully!");
+    addDoctorForm.reset();
+    loadDoctors();
+  });
+
+  // Initial load
+  loadDoctors();
+});
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
