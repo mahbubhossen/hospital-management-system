@@ -1,4 +1,44 @@
 document.addEventListener("DOMContentLoaded", async () => {
+
+
+
+  const navbarAuth = document.getElementById("navbarAuth");
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+
+  // Element আছে কিনা চেক
+if (navbarAuth) {
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  
+  if (currentUser) {
+    navbarAuth.innerHTML = `
+      <div class="dropdown">
+        <a class="btn dropdown-toggle" href="#" role="button" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+          <img src="images/profile-icon.png" alt="Profile" width="30" height="30" class="rounded-circle">
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+          <li><a class="dropdown-item" href="Dashboard.html">Dashboard</a></li>
+          <li><a class="dropdown-item" href="#" id="logoutBtn">Logout</a></li>
+        </ul>
+      </div>
+    `;
+
+    const logoutBtn = document.getElementById("logoutBtn");
+    if (logoutBtn) {
+      logoutBtn.addEventListener("click", () => {
+        localStorage.removeItem("currentUser");
+        window.location.reload();
+      });
+    }
+
+  } else {
+    navbarAuth.innerHTML = `
+      <a href="login.html" class="btn me-2" style="background-color: #8abc48; color: white;">Login</a>
+      <a href="registration.html" class="btn" style="background-color: #8abc48; color: white;">Register</a>
+    `;
+  }
+}
+
+
   // ---------------- Load Doctors (Home page) ----------------
   async function loadDoctors(limit = 6) {
     try {
@@ -280,6 +320,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
     });
   });
+
+  
 
   // ---------------- Detect Page ----------------
   if (document.getElementById("doctors-container")) loadDoctors(6);
