@@ -22,50 +22,7 @@
     />
   </head>
   <body>
-    <!-- Navbar Start -->
-<nav class="navbar navbar-expand-lg bg-light shadow-sm fixed-top">
-  <div class="container">
-    <!-- Logo -->
-    <a href="index.html">
-      <img src="images/logo.png" alt="Logo" width="120" class="me-2" />
-    </a>
-
-    <!-- Toggle Button for Mobile -->
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarNav"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <!-- Navbar Links -->
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav mx-auto">
-        <li class="nav-item">
-          <a class="nav-link active" href="index.html">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="doctors.html">Doctors</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="departments.html">Departments</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="appointment.html">Appointments</a>
-        </li>
-        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
-      </ul>
-
-      <!-- Dynamic Login/Register or Profile -->
-      <div id="navbarAuth" class="d-flex align-items-center">
-        <!-- JS will update content here -->
-      </div>
-    </div>
-  </div>
-</nav>
-<!-- Navbar End -->
+    <div id="navbar"></div>
 
     <main>
       <!-- Banner Section -->
@@ -75,6 +32,12 @@
             Welcome to <span style="color: #72b570">Hospital BD</span>
           </h1>
           <p class="lead mb-4">Your health is our priority</p>
+          <a
+            href="appointment.html"
+            class="btn btn-success text-white text-decoration-none"
+          >
+            Book Appointment
+          </a>
         </div>
       </section>
 
@@ -147,6 +110,64 @@
           </div>
         </div>
       </div>
+
+      <!-- Contact Section Start -->
+      <section class="container my-5">
+        <h2 class="text-center mb-4" style="color: #0d2b0d">Contact Us</h2>
+        <div class="row g-4">
+          <!-- Address Card -->
+          <div class="col-md-3">
+            <div class="card text-center shadow-sm h-100">
+              <div class="card-body">
+                <i class="fas fa-map-marker-alt fa-2x text-success mb-3"></i>
+                <h5 class="card-title">Address</h5>
+                <p class="card-text">Banani , Dhaka, Bangladesh</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Phone Card -->
+          <div class="col-md-3">
+            <div class="card text-center shadow-sm h-100">
+              <div class="card-body">
+                <i class="fas fa-phone fa-2x text-success mb-3"></i>
+                <h5 class="card-title">Phone</h5>
+                <p class="card-text">+880 123 456 789</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Email Card -->
+          <div class="col-md-3">
+            <div class="card text-center shadow-sm h-100">
+              <div class="card-body">
+                <i class="fas fa-envelope fa-2x text-success mb-3"></i>
+                <h5 class="card-title">Email</h5>
+                <p class="card-text">info@hospitalbd.com</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Location Map Card -->
+          <div class="col-md-3">
+            <div class="card text-center shadow-sm h-100">
+              <div class="card-body">
+                <i class="fas fa-location-arrow fa-2x text-success mb-3"></i>
+                <h5 class="card-title">Our Location</h5>
+                <p class="card-text">Click below to view on map</p>
+                <a
+                  href="https://share.google/9HTMKCsg6hZodbamC"
+                  target="_blank"
+                  class="btn btn-success"
+                >
+                  View on Map
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Contact Section End -->
 
       <!-- FAQ Section -->
       <div class="container my-5">
@@ -265,70 +286,108 @@
         </div>
       </div>
 
-
       <!-- Footer Start -->
-<footer class="bg-dark text-light pt-5">
-  <div class="container">
-    <div class="row">
-      <!-- About -->
-      <div class="col-md-4 mb-4">
-        <h5 class="text-success mb-3">Hospital BD</h5>
-        <p>
-          Your health is our priority. We provide qualified doctors, 24/7 services,
-          quality lab services, and free consultations for your well-being.
-        </p>
-      </div>
+      <footer class="bg-dark text-light pt-5">
+        <div class="container">
+          <div class="row">
+            <!-- About -->
+            <div class="col-md-4 mb-4">
+              <h5 class="text-success mb-3">Hospital BD</h5>
+              <p>
+                Your health is our priority. We provide qualified doctors, 24/7
+                services, quality lab services, and free consultations for your
+                well-being.
+              </p>
+            </div>
 
-      <!-- Quick Links -->
-      <div class="col-md-2 mb-4">
-        <h5 class="text-success mb-3">Quick Links</h5>
-        <ul class="list-unstyled">
-          <li><a href="index.html" class="text-light text-decoration-none">Home</a></li>
-          <li><a href="doctors.html" class="text-light text-decoration-none">Doctors</a></li>
-          <li><a href="departments.html" class="text-light text-decoration-none">Departments</a></li>
-          <li><a href="appointment.html" class="text-light text-decoration-none">Appointments</a></li>
-          <li><a href="contact.html" class="text-light text-decoration-none">Contact</a></li>
-        </ul>
-      </div>
+            <!-- Quick Links -->
+            <div class="col-md-2 mb-4">
+              <h5 class="text-success mb-3">Quick Links</h5>
+              <ul class="list-unstyled">
+                <li>
+                  <a href="index.html" class="text-light text-decoration-none"
+                    >Home</a
+                  >
+                </li>
+                <li>
+                  <a href="doctors.html" class="text-light text-decoration-none"
+                    >Doctors</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="departments.html"
+                    class="text-light text-decoration-none"
+                    >Departments</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="appointment.html"
+                    class="text-light text-decoration-none"
+                    >Appointments</a
+                  >
+                </li>
+              </ul>
+            </div>
 
-      <!-- Contact -->
-      <div class="col-md-3 mb-4">
-        <h5 class="text-success mb-3">Contact</h5>
-        <p><i class="fas fa-map-marker-alt me-2"></i>Dhaka, Bangladesh</p>
-        <p><i class="fas fa-phone me-2"></i>+880 123 456 789</p>
-        <p><i class="fas fa-envelope me-2"></i>info@hospitalbd.com</p>
-      </div>
+            <!-- Contact -->
+            <div class="col-md-3 mb-4">
+              <h5 class="text-success mb-3">Contact</h5>
+              <p>
+                <i class="fas fa-map-marker-alt me-2"></i>Banani , Dhaka,
+                Bangladesh
+              </p>
+              <p><i class="fas fa-phone me-2"></i>+880 123 456 789</p>
+              <p><i class="fas fa-envelope me-2"></i>info@hospitalbd.com</p>
+            </div>
 
-      <!-- Social -->
-      <div class="col-md-3 mb-4">
-        <h5 class="text-success mb-3">Follow Us</h5>
-        <a href="#" class="btn btn-success btn-sm rounded-circle me-2">
-          <i class="fab fa-facebook-f"></i>
-        </a>
-        <a href="#" class="btn btn-success btn-sm rounded-circle me-2">
-          <i class="fab fa-twitter"></i>
-        </a>
-        <a href="#" class="btn btn-success btn-sm rounded-circle me-2">
-          <i class="fab fa-instagram"></i>
-        </a>
-        <a href="#" class="btn btn-success btn-sm rounded-circle">
-          <i class="fab fa-linkedin-in"></i>
-        </a>
-      </div>
-    </div>
+            <!-- Social -->
+            <div class="col-md-3 mb-4">
+              <h5 class="text-success mb-3">Follow Us</h5>
+              <a
+                href="https://www.facebook.com/hospitalbd"
+                target="_blank"
+                class="btn btn-success btn-sm rounded-circle me-2"
+              >
+                <i class="fab fa-facebook-f"></i>
+              </a>
+              <a
+                href="https://twitter.com/hospitalbd"
+                target="_blank"
+                class="btn btn-success btn-sm rounded-circle me-2"
+              >
+                <i class="fab fa-twitter"></i>
+              </a>
+              <a
+                href="https://www.instagram.com/hospitalbd"
+                target="_blank"
+                class="btn btn-success btn-sm rounded-circle me-2"
+              >
+                <i class="fab fa-instagram"></i>
+              </a>
+              <a
+                href="https://www.linkedin.com/company/hospitalbd"
+                target="_blank"
+                class="btn btn-success btn-sm rounded-circle"
+              >
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+            </div>
+          </div>
 
-    <hr class="bg-light">
+          <hr class="bg-light" />
 
-    <div class="row">
-      <div class="col text-center">
-        <p class="mb-0">&copy; 2025 Hospital BD. All Rights Reserved.</p>
-      </div>
-    </div>
-  </div>
-</footer>
-<!-- Footer End -->
-
+          <div class="row">
+            <div class="col text-center">
+              <p class="mb-0">&copy; 2025 Hospital BD. All Rights Reserved.</p>
+            </div>
+          </div>
+        </div>
+      </footer>
+      <!-- Footer End -->
     </main>
+
 
     <script src="index.js"></script>
     <!-- bootstrap -->

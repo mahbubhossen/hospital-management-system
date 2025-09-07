@@ -15,10 +15,13 @@
 </head>
 <body>
 
-<div class="container">
-  <h1 class="text-center mb-4">Admin Dashboard</h1>
+<div class="container d-flex justify-content-between align-items-center mb-4">
+  <h1>Admin Dashboard</h1>
+  <a href="index.html" class="btn btn-success">Back to Home</a>
+</div>
 
-  <!-- Add Doctor Form -->
+<!-- Add Doctor Form -->
+<div class="container">
   <div class="card p-3">
     <h3>Add Doctor</h3>
     <form id="addDoctorForm">
@@ -67,6 +70,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const doctors = JSON.parse(localStorage.getItem("doctors")) || [];
     doctorsListContainer.innerHTML = "";
 
+    if (doctors.length === 0) {
+      doctorsListContainer.innerHTML = "<p class='text-muted'>No doctors available. Please add one.</p>";
+      return;
+    }
+
     doctors.forEach(doc => {
       const col = document.createElement("div");
       col.className = "col-md-4";
@@ -97,7 +105,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const email = document.getElementById("doctorEmail").value.trim();
     const phone = document.getElementById("doctorPhone").value.trim();
     const specialization = document.getElementById("doctorSpecialization").value.trim();
-    const days = document.getElementById("doctorDays").value.trim().split(",").map(d => d.trim());
+    const days = document.getElementById("doctorDays").value.trim().split(",").map(d => d.trim()).filter(Boolean);
     const photo = document.getElementById("doctorPhoto").value.trim();
 
     if(!name || !email || !phone || !specialization || days.length === 0 || !photo) {

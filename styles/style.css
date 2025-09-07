@@ -1,6 +1,15 @@
+/* body fade animation */
 body {
-  padding-top: 80px; /* navbar height approx 56px + extra space */
+  padding-top: 80px;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
 }
+
+/* page load hole opacity 1 hobe */
+body.fade-in {
+  opacity: 1;
+}
+
 .banner {
   position: relative;
   height: 80vh; 
@@ -33,6 +42,11 @@ body {
     font-size: 1.25rem; /* Bigger text */
     font-weight: 600; /* Slightly bold */
   }
+
+.navbar .d-flex {
+  z-index: 1050; /* নিশ্চিত dropdown icon দেখাবে */
+  position: relative;
+}
 
 
    .why-card {
